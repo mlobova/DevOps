@@ -1,0 +1,10 @@
+[Unit]
+# Human readable name of the unit
+Description=MOTD and GET API python script
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /usr/local/lib/python_service/python_service.py
+
+[Install]
+WantedBy=multi-user.target
