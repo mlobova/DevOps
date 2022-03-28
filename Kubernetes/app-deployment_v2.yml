@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: systemd-app
+  labels:
+    app: pythonapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pythonapi
+  template:
+    metadata:
+      labels:
+        app: pythonapi
+    spec:
+      containers:
+        - name: pythonapi
+          image: cr.yandex/crpqnas0l7mjcgcr4da2/dockerfile:appimage
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          command: ["/usr/sbin/init"]
+          securityContext: 
+            privileged: true
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-service
+
+spec:
+  ports:
+  - port: 80
+    nodePort: 30300
+    targetPort: 80
+  selector:
+    app: pythonapi
+  type: NodePort

@@ -1,0 +1,30 @@
+CentOS:
+
+==> qemu: Starting VM, booting from CD-ROM
+2022/03/24 13:40:04 packer.io plugin: Qemu Builder has no floppy files, not attaching a floppy.
+2022/03/24 13:40:04 packer.io plugin: Executing /usr/bin/qemu-system-x86_64: []string{"-m", "512M", "-display", "gtk", "-name", "centos7-base", "-vnc", "127.                                                                                0.0.1:96", "-machine", "type=pc,accel=kvm", "-device", "virtio-net,netdev=user.0", "-drive", "file=centos7-base-img/centos7-base,if=virtio,cache=writeback,di                                                                                scard=ignore,format=qcow2", "-drive", "file=/root/.cache/packer/18222a849f012e91b9d1b48fd8b2796668c572ac.iso,media=cdrom", "-boot", "once=d", "-netdev", "use                                                                                r,id=user.0,hostfwd=tcp::3385-:22"}
+2022/03/24 13:40:04 packer.io plugin: Started Qemu. Pid: 9777
+2022/03/24 13:40:04 packer.io plugin: Qemu stderr:
+2022/03/24 13:40:04 packer.io plugin: Qemu stderr: (process:9777): GLib-WARNING **: 13:40:04.243: gmem.c:489: custom memory allocation vtable not supported
+2022/03/24 13:40:04 packer.io plugin: Qemu stderr: Could not access KVM kernel module: No such file or directory
+2022/03/24 13:40:04 packer.io plugin: Qemu stderr: failed to initialize KVM: No such file or directory
+==> qemu: Error launching VM: Qemu failed to start. Please run with PACKER_LOG=1 to get more info.
+
+
+
+Ubuntu:
+
+==> qemu: Starting VM, booting from CD-ROM
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Qemu --version output: QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.21)
+2022/03/24 20:21:42 packer: Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Qemu version: 4.2.1
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Qemu Builder has no floppy files, not attaching a floppy.
+2022/03/24 20:21:42 ui: ==> qemu: Overriding defaults Qemu arguments with QemuArgs...
+==> qemu: Overriding defaults Qemu arguments with QemuArgs...
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Executing /usr/bin/qemu-system-x86_64: []string{"-display", "gtk", "-name", "centos7-base", "-netdev", "user,id=user.0,hostfwd=tcp::3423-:22", "-device", "virtio-net,netdev=user.0", "-cdrom", "/root/packer/packer_cache/8de47c5aa1b53e13a5c5fc16a625ffb80d5f9b118c94accbc1e78805089b6031.iso", "-m", "512M", "-machine", "type=pc,accel=kvm", "-drive", "file=centos7-base-img/centos7-base,if=virtio,cache=writeback,discard=ignore,format=qcow2", "-boot", "once=d", "-vnc", "127.0.0.1:78"}
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Started Qemu. Pid: 598499
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Qemu stderr: Unable to init server: Could not connect: Connection refused
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Qemu stderr: Could not access KVM kernel module: No such file or directory
+2022/03/24 20:21:42 packer: 2022/03/24 20:21:42 Qemu stderr: qemu-system-x86_64: failed to initialize KVM: No such file or directory
+2022/03/24 20:21:42 ui error: ==> qemu: Error launching VM: Qemu failed to start. Please run with PACKER_LOG=1 to get more info.
+==> qemu: Error launching VM: Qemu failed to start. Please run with PACKER_LOG=1 to get more info.

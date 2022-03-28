@@ -1,0 +1,19 @@
+---
+- name: Ansible playbook
+  hosts: localhost
+  tasks:
+  
+     - name: Install required packages
+       shell: "yum -y update; yum install -y python3; pip3 install flask; yum install -y cronie; yum clean all"
+           
+     - name: Move service to systemd folder
+       shell: "mv /root/python_rest_api.service /etc/systemd/system"
+          
+     - name: Move the script to /usr/local/lib
+       shell: "mkdir /usr/local/lib/python_service/; mv /root/python_service.py /usr/local/lib/python_service/"
+           
+     - name: Enable systemd service
+       shell: "systemctl enable python_rest_api.service"
+           
+     - name: Create cron task to restart the service once a day
+       shell: "echo \"0 0 * * *  systemctl restart python_rest_api.service\" | crontab -"

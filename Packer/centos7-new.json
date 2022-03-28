@@ -1,0 +1,40 @@
+{
+  "builders": [
+    {
+      "accelerator": "kvm",
+      "iso_checksum": "md5:a4711c4fa6a1fb32bd555fae8d885b12",
+      "iso_url": "http://centos.telecoms.bg/7.9.2009/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso",
+      "output_directory": "centos7-base-img",
+      "ssh_password": "1qazXSW@",
+      "ssh_port": 22,
+      "ssh_username": "root",
+      "type": "qemu",
+      "vm_name": "centos7-base"
+    }
+  ],
+  "provisioners": [
+    {
+      "destination": "/root/",
+      "source": "app/",
+      "type": "file"
+    },
+    {
+      "inline": [
+        "yum install ansible"
+      ],
+      "pause_before": "5s",
+      "type": "shell"
+    },
+    {	
+      "destination": "./",
+      "source": "./playbook.yml",
+      "type": "file"
+    },	
+    {
+      "type": "ansible-local",
+      "playbook_file": "playbook.yml",
+      "playbook_dir": "./"
+    }
+  ]
+}
+
