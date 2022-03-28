@@ -85,11 +85,21 @@ to find EXTERNAL-IP of the NODE
     
 ## (optional) Continuous Integration / Continuous Delivery / Continuous Deployment
 Jenkins deployed: http://51.250.96.151:32000/
+    
+    # kubectl get services -n devops-tools
+    NAME              TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    jenkins-service   NodePort   10.96.137.105   <none>        8080:32000/TCP   25h
+    
 <p>&nbsp;</p>
     
     
 ## (optional) Monitoring
 Prometheus deployed: http://51.250.27.79:30000/
+    
+    # kubectl get services -n monitoring
+    NAME                 TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    prometheus-service   NodePort   10.96.141.223   <none>        8080:30000/TCP   19h
+    
 <p>&nbsp;</p>
     
     
