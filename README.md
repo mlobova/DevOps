@@ -69,12 +69,9 @@
     
 <p> API GET request: </p>
     
-    http://http://51.250.103.0:8000/info
+    http://51.250.27.79:31522/info
     	
-    date	"2022-03-28"
-    hash	-7162813333160065000
-    ip	"10.112.130.20"
-    time	"09:32:25.125202"
+    {"date":"2022-03-28","hash":-7162813333160064537,"ip":"10.112.130.20","time":"10:09:54.148635"}
     
 
 <p>File <strong>app-deployment_v2.yml</strong> description:<br /> <strong>Deployment</strong> from yc cloud image in privileged mode<br /> <strong>Service</strong> of type <strong>NodePort</strong> will be accessible by cluster node Public IP and nodePort: 30300:<br /></p>
