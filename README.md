@@ -1,13 +1,19 @@
 ## [DONE] Service programming
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>Folder <strong>app</strong>/ content:</p>
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>python_service.py</strong> - the script to update /etc/motd file and having REST API GET /info method<br><strong>python_rest_api.service</strong> - systemd service which run python_service.py script</p>
-<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>In order to update message of the day on the daily basis, cron task must be running in container:<br><span style="font-size: 15px; line-height: 107%; font-family: Courier New, courier;"><em><span style="color: rgb(71, 85, 119);">0 0 * * * &nbsp;systemctl restart python_rest_api.service</span></em></span></p>
+<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>In order to update message of the day on the daily basis, cron task must be running in container:<br><span style="font-size: 15px; line-height: 107%; font-family: Courier New, courier;"><em><span style="color: rgb(71, 85, 119);"></span></em></span></p>
+
+    0 0 * * * &nbsp;systemctl restart python_rest_api.service
+
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>The cron is included into <strong>Dockerfile </strong>as a part of deployment</p>
 
 ## Packer
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>Folder <strong>Packer</strong>/ content:</p>
 <p><strong>centos7-new.json</strong> - Packer JSON to build image<br><strong>playbook.yml</strong> - YAML file to build the packer image<br><strong>installation.log&nbsp;</strong>- errors while building</p>
-<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'><em>#&nbsp;</em><em>PACKER_LOG=1 packer.io build centos7-new.json</em></p>
+<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'><em></em><em></em></p>
+
+    # PACKER_LOG=1 packer.io build centos7-new.json
+
 <p>The error returns on both CentOS and Ubuntu VMs:<br><em>gmem.c:489: custom memory allocation vtable not supported</em></p>
 
 ## [DONE] Docker
@@ -21,6 +27,57 @@
         <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>Enable <strong>python_rest_api.service</strong></li>
         <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>Create cron task to update motd once a day</li>
     </ul>
-    <p>Creating of a container from this image requires privileged permissions (to make the service running):<br><em># docker build -t &lt;repository&gt;:&lt;tag&gt; .<br># docker run -d --name &lt;container_name&gt; --privileged=true &lt;image_id&gt; /usr/sbin/init<br># docker exec -it --privileged &lt;container_nabme&gt; /bin/bash</em><br></p>
+    <p>Creating of a container from this image requires privileged permissions (to make the service running):</p>
+    
+    # docker build -t <repository>:<tag> .
+    # docker exec -it --privileged <container_nabme&gt> /bin/bash
+    # docker run -d --name <container_name> --privileged=true <image_id> /usr/sbin/init
   
 ## [DONE] (optional) Public clouds
+<p>How to authenticate to Yandex Cloud: <a href="https://cloud.yandex.com/en/docs/cli/quickstart">https://cloud.yandex.com/en/docs/cli/quickstart</a><br /> Pushing a Docker image to a registry <a href="https://cloud.yandex.com/en/docs/managed-kubernetes/tutorials/container-registry">https://cloud.yandex.com/en/docs/managed-kubernetes/tutorials/container-registry</a> :</p>
+<ol>
+<li>Create a container registry<br /> <em></em></li>
+    
+    # yc container registry create --name <registry_name>
+    
+<li>Configure the Docker Credential helper<em><br /></em></li>
+    
+    # yc container registry configure-docker
+    
+<li><em>Get the ID of the previously created registry and write it to the variable<br /></em></li>
+    
+    # REGISTRY_ID=$(yc container registry get --name yc-auto-cr --format json | jq .id -r)
+    
+<li>Push the Docker image to the registry<em><br /></em></li>
+    
+    # docker push cr.yandex/${REGISTRY_ID}/<repositor>:<tag>
+    
+<li><em>Make sure the Docker image was pushed to the registry<br /></em><em></em></li>
+    
+    # yc container image list
+    
+</ol>
+
+## [DONE] Kubernetes
+    
+    # kubectl apply -f app-deployment_v2.yml
+    
+<p> API GET request: </p>
+    
+    http://http://51.250.103.0:8000/info
+    	
+    date	"2022-03-28"
+    hash	-7162813333160065000
+    ip	"10.112.130.20"
+    time	"09:32:25.125202"
+    
+
+<p>File <strong>app-deployment_v2.yml</strong> description:<br /> <strong>Deployment</strong> from yc cloud image in privileged mode<br /> <strong>Service</strong> of type <strong>NodePort</strong> will be accessible by cluster node Public IP and nodePort: 30300:<br /></p>
+check the pod NODE
+    
+    # kubectl apply -f app-deployment_v2.yml
+to find EXTERNAL-IP of the NODE
+    
+    # kubectl get pods -o wide
+    
+## (optional) Continuous Integration / Continuous Delivery / Continuous Deployment
