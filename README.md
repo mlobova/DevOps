@@ -96,5 +96,20 @@ Prometheus deployed: http://51.250.27.79:30000/
 <p>&nbsp;</p>
     
     
-## Public services
+## [DONE] Public services
+    # git clone https://github.com/mlobova/DevOps.git
+    # cd DevOps
+    make changes
+    # git status
+    # git add
+    # git checkout
+    # git commit -m "Changes description"
+    # git push -u origin
+      login:
+      api key:
 
+<p>Pull request:</p>
+
+    # cd DevOps
+    # git pull
+    make changes
