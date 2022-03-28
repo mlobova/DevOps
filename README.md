@@ -3,7 +3,7 @@
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'><strong>python_service.py</strong> - the script to update /etc/motd file and having REST API GET /info method<br><strong>python_rest_api.service</strong> - systemd service which run python_service.py script</p>
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>In order to update message of the day on the daily basis, cron task must be running in container:<br><span style="font-size: 15px; line-height: 107%; font-family: Courier New, courier;"><em><span style="color: rgb(71, 85, 119);"></span></em></span></p>
 
-    0 0 * * * &nbsp;systemctl restart python_rest_api.service
+    0 0 * * *  systemctl restart python_rest_api.service
 
 <p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>The cron is included into <strong>Dockerfile </strong>as a part of deployment</p>
 <p>&nbsp;</p>
