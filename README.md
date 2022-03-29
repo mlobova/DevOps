@@ -15,7 +15,10 @@
 
     # PACKER_LOG=1 packer.io build centos7-new.json
 
-<p>The error returns on both CentOS and Ubuntu VMs:<br><em>gmem.c:489: custom memory allocation vtable not supported</em></p>
+<p>The error returns on both CentOS and Ubuntu VMs:<br></p>
+
+    gmem.c:489: custom memory allocation vtable not supported
+
 <p>&nbsp;</p>
 
 ## [DONE] Docker
@@ -63,9 +66,14 @@
 </ol>
 <p>&nbsp;</p>
 
-## [DONE] Kubernetes
+## [DONE] Kubernetes    
+<p>File <strong>app-deployment_v2.yml</strong> description:<br /> <strong>Deployment</strong> from yc cloud image in privileged mode<br /> <strong>Service</strong> of type <strong>NodePort</strong> will be accessible by cluster node Public IP and nodePort <br /></p>
+check the pod NODE
     
     # kubectl apply -f app-deployment_v2.yml
+to find EXTERNAL-IP of the NODE
+    
+    # kubectl get pods -o wide
     
 <p> API GET request: </p>
     
@@ -73,14 +81,6 @@
     	
     {"date":"2022-03-28","hash":-7162813333160064537,"ip":"10.112.130.20","time":"10:09:54.148635"}
     
-
-<p>File <strong>app-deployment_v2.yml</strong> description:<br /> <strong>Deployment</strong> from yc cloud image in privileged mode<br /> <strong>Service</strong> of type <strong>NodePort</strong> will be accessible by cluster node Public IP and nodePort: 30300:<br /></p>
-check the pod NODE
-    
-    # kubectl apply -f app-deployment_v2.yml
-to find EXTERNAL-IP of the NODE
-    
-    # kubectl get pods -o wide
 <p>&nbsp;</p>
     
 ## (optional) Continuous Integration / Continuous Delivery / Continuous Deployment
